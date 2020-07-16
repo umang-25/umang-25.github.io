@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Documentation to Explain shiny app</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Documentation to Explain shiny app">
+  <meta name="author" content="Umang Gupta">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  
+  <hgroup class="auto-fadein">
+    <h1>Documentation to Explain shiny app</h1>
+    <h2></h2>
+    <p>Umang Gupta<br/></p>
+  </hgroup>
+  
+  <article></article>  
+  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>This app simply tells you the different specifications available for you car model if you provide it the manufacturer company&#39;s name, model and the year of manufacture.
+This project could be easily scaled to work on bigger datasets and solve the problem of finding the different models available for your car and thus help in deciding the best car you could buy.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  
+  <hgroup>
+    <h2>What is it based on ?</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>It uses the mpg dataset. the mpg dataset contain a subset of the fuel economy data that the EPA makes available on <a href="http://fueleconomy.gov">http://fueleconomy.gov</a>. It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car. This dataset was used because of its realtively small size and the popular cars used in the dataset.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  
+  <hgroup>
+    <h2>What are the inputs and outputs</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>You&#39;ll simply input the manufacturer of the car say.. &quot;audi&quot; , a model you want to inquire about.. say &quot;a4&quot;, and the year of manufacture &quot;1999&quot;. The program will return:</p>
+
+<ul>
+<li>1.) Total models available</li>
+<li>2.) Different fuels model available say P for petrol or E for electronic</li>
+<li>3.) Different types of transmission models available</li>
+<li>4.) What are the Highway per Gallon variants available</li>
+<li>5.) Different types of cars available</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  
+  <hgroup>
+    <h2>What this Project does behind the UI ?</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>The project takes the input from the user then loads the mpg dataset and using dplyr subsets the models that match all the specifications. This is done in a reactive statement because then this subsetted dataset is then used return the rows and various models. 
+The overall idea can be demonstrated here</p>
+
+<pre><code class="r">                library(dplyr)
+                mpg &lt;- read.csv(&#39;mpg.csv&#39;)
+                # assuming that manufacturer is audi, model is a4 and year of manufacture is 1999
+                mo&lt;- mpg %&gt;% filter(manufacturer==&quot;audi&quot;,model==&quot;a4&quot;,year==1999)
+                print(&quot;Total models available:&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Total models available:&quot;
+</code></pre>
+
+<pre><code class="r">                nrow(mo)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  
+  <hgroup>
+    <h2>Closing notes</h2>
+  </hgroup>
+  
+  <article data-timings="">
+    <p>The app is posted here -&gt; <a href="https://umang25.shinyapps.io/app2/">https://umang25.shinyapps.io/app2/</a></p>
+
+<p>In case you&#39;re wondering what are the inputs you can give to the program, here is a list of manufacturers available.</p>
+
+<pre><code class="r">                        mpg &lt;- read.csv(&#39;mpg.csv&#39;)
+                        print(&quot;Manufacturers accepted&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Manufacturers accepted&quot;
+</code></pre>
+
+<pre><code class="r">                        levels(as.factor(mpg$manufacturer))
+</code></pre>
+
+<pre><code>##  [1] &quot;audi&quot;       &quot;chevrolet&quot;  &quot;dodge&quot;      &quot;ford&quot;       &quot;honda&quot;     
+##  [6] &quot;hyundai&quot;    &quot;jeep&quot;       &quot;land rover&quot; &quot;lincoln&quot;    &quot;mercury&quot;   
+## [11] &quot;nissan&quot;     &quot;pontiac&quot;    &quot;subaru&quot;     &quot;toyota&quot;     &quot;volkswagen&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What is it based on ?'>
+         2
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='What are the inputs and outputs'>
+         3
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='What this Project does behind the UI ?'>
+         4
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Closing notes'>
+         5
+      </a>
+    </li>
+    
+    </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
